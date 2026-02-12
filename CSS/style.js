@@ -505,7 +505,6 @@ yesBtn.addEventListener("click", () => {
     celebrating = true;
 
     moodFill.style.width = "0%";
-    moodFill.style.background = "#22c55e"; // back to green
     moodLabel.textContent = "Mood: Excited as ever 🤩💞";
 
     yesBtn.style.display = "none";
@@ -594,5 +593,6 @@ setTimeout(() => {
     noHint.style.display = "block";
     placeHintNearNo(rr.left, rr.top, rr.width, rr.height);
 }, 60);
+
 
 
