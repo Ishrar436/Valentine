@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine 💖</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;800&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <!-- background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-vignette"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- main card -->
+    <main class="wrap">
+        <section class="card" id="card">
+            <div class="badge">February 14 ❤️</div>
+
+            <div class="headerBox" id="headerBox">
+                <h1 class="title">Will you be my Valentine?</h1>
+                <p class="subtitle">made for you 💌</p>
+            </div>
+
+            <div class="mood" id="moodBox">
+                <div class="mood-top">
+                    <span class="mood-label" id="moodLabel">Mood: hopeful 💗</span>
+                    <span class="mood-count" id="moodCount">No tries: 0</span>
+                </div>
+                <div class="mood-bar">
+                    <div class="mood-fill" id="moodFill"></div>
+                </div>
+            </div>
+
+            <!-- button row (only for initial layout; NO button will later roam entire screen) -->
+            <div class="btn-row">
+                <button class="btn yes" id="yesBtn">Yes 💗</button>
+                <button class="btn no" id="noBtn">No 💔</button>
+            </div>
+
+            <!-- success panel -->
+            <div class="success hidden" id="success">
+                <h2 class="yay">YAYYY 💖</h2>
+                <p class="yay-sub">Best decision ever 😽💘</p>
+
+                <div class="chips">
+                    <span>🎬 Movie</span>
+                    <span>☕ Coffee</span>
+                    <span>🍦 Ice Cream</span>
+                    <span>🌙 Night Walk</span>
+                </div>
+
+                <button class="btn again" id="againBtn">Replay 🔁</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- No hint that follows the No button -->
+    <div class="noHint" id="noHint">are you sure? 🙂</div>
+
+    <!-- reaction dock (taller, gif on top, text below) -->
+    <div class="dock" id="dock">
+        <div class="dock-glass">
+            <button class="dock-close" id="dockClose" aria-label="close">✕</button>
+
+            <div class="gif-big">
+                <img id="dockGif" src="GIF/cry.gif" alt="reaction gif" />
+            </div>
+
+            <div class="dock-title" id="dockTitle">pls don’t 😭</div>
+            <div class="dock-sub" id="dockSub">don’t break my heart…</div>
+        </div>
+    </div>
+
+    <!-- Gun overlay (late stage) -->
+    <div class="gunOverlay hidden" id="gunOverlay">
+        <div class="gunCard">
+            <img src="GIF/gun.gif" class="gunImg" alt="gun gif">
+            <div class="gunText">
+                <div class="gunTitle">Are you messing with me 😡</div>
+                <div class="gunSub">Just press YES 😤</div>
+                <div class="gunHint">(Click anywhere to remove the NO button)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- confetti -->
+    <canvas id="confetti"></canvas>
+
+    <script src="CSS/style.js"></script>
+</body>
+
+</html>
