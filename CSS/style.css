@@ -593,4 +593,25 @@ body {
     inset: 0;
     pointer-events: none;
     z-index: 90;
+
+}
+
+@media (max-width: 520px) {
+  .dock {
+    width: min(220px, 60vw);
+    left: 10px;
+    bottom: 10px;
+  }
+
+  .gif-big {
+    height: 120px;
+  }
+
+  .dock-title { font-size: 13px; }
+  .dock-sub   { font-size: 11px; }
+
+  /* Optional (recommended): give your main card extra bottom space so dock never covers buttons */
+  .card {
+    padding-bottom: 200px;
+  }
 }
