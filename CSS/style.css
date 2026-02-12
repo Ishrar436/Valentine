@@ -1,0 +1,596 @@
+:root {
+    /* More vibrant, romantic palette */
+    --glass: rgba(255, 255, 255, 0.18);
+    --glass2: rgba(20, 0, 10, 0.25);
+    --stroke: rgba(255, 255, 255, 0.4);
+    --shadow: rgba(60, 0, 20, 0.4);
+
+    /* Button Colors - Higher Contrast */
+    --yes1: #00f2fe;
+    /* Bright Cyan */
+    --yes2: #4facfe;
+    /* Deep Blue */
+    --no1: #ff0844;
+    /* Vivid Crimson */
+    --no2: #ffb199;
+    /* Soft Peach */
+
+    /* Typography Colors */
+    --text-main: #ffffff;
+    --text-accent: #ffdeeb;
+    /* Soft Pinkish White */
+    --text-highlight: #fffa82;
+    /* Golden/Yellow for "No tries" or emphasis */
+    --muted: rgba(255, 230, 240, 0.85);
+
+    --cardW: min(760px, 94vw);
+    --replay-bg: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    --replay-text: #7a1b32;
+
+    --glass: rgba(255, 255, 255, 0.12);
+    --stroke: rgba(255, 255, 255, 0.3);
+    --cardW: min(760px, 94vw);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    /* Use a more "elegant" serif-sans mix if possible */
+    font-family: "Nunito", "Quicksand", "Segoe UI Rounded", ui-rounded, "Hiragino Maru Gothic ProN", sans-serif;
+    color: var(--text-main);
+    overflow: hidden;
+    background: #1a0005;
+    /* Deep dark cherry */
+}
+
+/* Enhanced Background Gradient */
+.bg-gradient {
+    position: fixed;
+    inset: -20%;
+    background:
+        radial-gradient(circle at 15% 25%, rgba(255, 0, 100, 0.4), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(130, 50, 255, 0.4), transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(255, 80, 50, 0.3), transparent 50%),
+        linear-gradient(135deg, #4b0082, #800020, #000000);
+    /* Indigo to Burgundy to Black */
+    filter: blur(40px);
+    animation: drift 25s ease-in-out infinite alternate;
+    z-index: -3;
+}
+
+@keyframes drift {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.2) translate(2%, 2%);
+    }
+}
+
+.bg-vignette {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: -2;
+}
+
+.particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* floating particle (hearts / broken hearts) */
+.particle {
+    position: absolute;
+    width: 22px;
+    /* Slightly larger for better visibility */
+    height: 22px;
+    /* Increase opacity so they don't get lost in the dark BG */
+    opacity: 0.75;
+    transform: translate(-50%, -50%);
+    animation: floatUp linear forwards;
+    /* Remove blur to make them sharper */
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+}
+
+@keyframes floatUp {
+    from {
+        transform: translate(-50%, -50%) translateY(30px) scale(.9);
+        opacity: 0.3;
+    }
+
+    to {
+        transform: translate(-50%, -50%) translateY(-400px) scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* heart shape - Updated to a brighter Pink/Red */
+.p-heart::before,
+.p-heart::after,
+.p-heart span {
+    content: "";
+    position: absolute;
+    /* Use a brighter, more "Neon" pink-red to contrast with dark BG */
+    background: #ff4d6d;
+}
+
+.p-heart::before {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    left: 5px;
+    top: 1px;
+}
+
+.p-heart::after {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    left: 1px;
+    top: 5px;
+}
+
+.p-heart span {
+    width: 0;
+    height: 0;
+    left: 1px;
+    top: 8px;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-top: 12px solid #ff4d6d;
+}
+
+/* broken heart (simple crack line) */
+.p-broken {
+    position: relative;
+}
+
+.p-broken::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: #ff8fab;
+    /* Lighter pink for broken hearts */
+    clip-path: polygon(0% 25%, 35% 25%, 45% 45%, 55% 35%, 65% 55%, 100% 55%, 100% 100%, 0% 100%);
+}
+
+.p-broken::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: rgba(0, 0, 0, 1);
+    transform: translateX(-50%) rotate(15deg);
+    opacity: 1;
+}
+
+/* Layout */
+.wrap {
+    height: 100%;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.card {
+    width: var(--cardW);
+    position: relative;
+    padding: 50px 34px 40px;
+    border-radius: 40px;
+    /* The master radius */
+    background: linear-gradient(180deg, var(--glass), rgba(20, 0, 5, 0.4));
+    border: 1px solid var(--stroke);
+    box-shadow: 0 30px 85px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    /* CRITICAL FIX: Ensure the inner background doesn't bleed out */
+    background-clip: padding-box;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    /* Match the border exactly */
+    border-radius: 40px;
+    /* MUST match the card's border-radius exactly */
+    background: radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.15), transparent 55%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-size: 12px;
+    background: rgba(255, 255, 255, .14);
+    border: 1px solid rgba(255, 255, 255, .22);
+    padding: 6px 10px;
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+}
+
+.headerBox {
+    text-align: center;
+}
+
+.title {
+    margin: 0 0 10px;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    /* Gradient text for the main question */
+    background: linear-gradient(to right, #ffffff, #ffbad2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Mood */
+.mood {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.mood-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, .88);
+}
+
+.mood-top span:last-child {
+    color: var(--text-highlight);
+    /* Makes "No tries: 0" pop */
+    font-weight: bold;
+}
+
+.mood-bar {
+    width: 100%;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .12);
+    overflow: hidden;
+}
+
+.mood-fill {
+    width: 14%;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ff8fab, #8b5cf6, #22c55e);
+    transition: width .55s ease;
+    /* slower mood bar */
+}
+
+/* Buttons (initial spacing) */
+.btn-row {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+    /* more space */
+    align-items: center;
+    min-height: 70px;
+}
+
+.btn {
+    border: 0;
+    cursor: pointer;
+    padding: 18px 36px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 -4px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    user-select: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+}
+
+.btn:active {
+    transform: translateY(0px) scale(.98);
+}
+
+.btn.yes {
+    background: linear-gradient(135deg, var(--yes1), var(--yes2));
+}
+
+.btn.no {
+    background: linear-gradient(135deg, var(--no1), var(--no2));
+}
+
+.btn.again {
+    margin-top: 14px;
+    background: var(--replay-bg);
+    color: var(--replay-text);
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 800;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 20px rgba(255, 154, 158, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.3s ease;
+}
+
+.btn.again:hover {
+    transform: translateY(-3px) scale(1.05);
+    filter: brightness(1.1);
+    box-shadow: 0 15px 30px rgba(255, 143, 171, 0.5);
+}
+
+/* No hint that follows No button */
+.noHint {
+    /* Using a soft glass effect instead of a solid color */
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    /* Elegant border and text shadow for readability */
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+    padding: 8px 16px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+    /* Ensure it feels light and airy */
+    transition: all 0.2s ease;
+    transform: translateX(-50%)
+}
+
+#noHint {
+    position: fixed;
+    z-index: 99999;
+    pointer-events: none;
+}
+
+/* smooth movement only when roaming */
+/* smooth movement only when roaming */
+.btn.no.roaming {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: left .45s cubic-bezier(.2, .9, .2, 1),
+        top .45s cubic-bezier(.2, .9, .2, 1),
+        transform .25s ease;
+    will-change: left, top;
+}
+
+/* Success panel */
+.success {
+    margin-top: -10px;
+    /* Moves the YAYYY box closer to the mood bar */
+    padding: 25px 18px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    /* Lighter and softer */
+    border: 1px dashed rgba(255, 143, 171, 0.5);
+    /* Cute dashed border */
+
+    text-align: center;
+    animation: popIn .38s ease;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(.94);
+        opacity: .0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.yay {
+
+    letter-spacing: 1px;
+    margin: 0;
+    font-size: 40px;
+    font-weight: 900;
+    color: #ffb199;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.yay-sub {
+    margin: 8px 0 16px;
+    color: rgba(255, 255, 255, .85);
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    background: rgba(255, 143, 171, 0.2);
+    border: 1px solid rgba(255, 143, 171, 0.3);
+    color: #ffdeeb;
+}
+
+.chips span {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .12);
+    border: 1px solid rgba(255, 255, 255, .18);
+}
+
+/* Dock: taller, smaller width, gif top, text below */
+.dock {
+    position: fixed;
+    left: 18px;
+    bottom: 18px;
+    z-index: 50;
+    width: 300px;
+}
+
+.dock-glass {
+    width: 100%;
+    padding: 12px 12px 14px;
+    border-radius: 18px;
+    background: rgba(20, 0, 5, 0.6);
+    /* Darker dock for contrast */
+    border: 1px solid rgba(255, 50, 100, 0.3);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .28);
+    position: relative;
+    overflow: hidden;
+}
+
+.dock-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    background: rgba(0, 0, 0, .12);
+    color: rgba(255, 255, 255, .85);
+    cursor: pointer;
+}
+
+.gif-big {
+    width: 100%;
+    height: 170px;
+    /* bigger gif view */
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .24);
+    background: rgba(0, 0, 0, .12);
+}
+
+.gif-big img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.dock-title {
+    margin-top: 10px;
+    font-weight: 900;
+    font-size: 15px;
+    color: #ff8fab;
+}
+
+.dock-sub {
+    margin-top: 4px;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, .82);
+}
+
+/* Gun overlay */
+.gunOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, .35);
+    backdrop-filter: blur(6px);
+}
+
+.gunCard {
+    width: min(850px, 95vw);
+    border-radius: 28px;
+    background: rgba(20, 0, 5, 0.9);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    /* Clips the square corners of the GIF inside */
+    display: flex;
+    flex-direction: column;
+}
+
+.gunImg {
+    width: 100%;
+    /* Set height to auto and object-fit to contain to show original aspect ratio */
+    height: auto;
+    max-height: 65vh;
+    object-fit: fill;
+    background: #000;
+    /* Black bars only if the gif is very oddly shaped */
+    display: block;
+}
+
+.gunText {
+    padding: 24px;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
+}
+
+.gunTitle {
+    font-size: 22px;
+    font-weight: 950;
+}
+
+.gunSub {
+    margin-top: 6px;
+    color: rgba(255, 255, 255, .9);
+    font-weight: 700;
+}
+
+.gunHint {
+    margin-top: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, .75);
+}
+
+/* Confetti */
+#confetti {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 90;
+}
