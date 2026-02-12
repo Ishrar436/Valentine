@@ -130,8 +130,8 @@ function updateMoodUI() {
     let pct = 12;
 
     if (noAttempts >= 1 && noAttempts < T_SCARED) { label = "Mood: cry 😭"; pct = 32; }
-    if (noAttempts >= T_SCARED && noAttempts < T_ANGRY) { label = "Mood: scared 😳"; pct = 58; }
-    if (noAttempts >= T_ANGRY && noAttempts < T_SUPER) { label = "Mood: angry 😤"; pct = 72; }
+    if (noAttempts >= T_SCARED && noAttempts < T_ANGRY) { label = "Mood: scared 😳"; pct = 50; }
+    if (noAttempts >= T_ANGRY && noAttempts < T_SUPER) { label = "Mood: angry 😤"; pct = 70; }
     if (noAttempts >= T_SUPER) { label = "Mood: super angry 😡"; pct = 100; }
 
     moodLabel.textContent = label;
@@ -504,6 +504,10 @@ yesBtn.addEventListener("click", () => {
     if (celebrating) return;
     celebrating = true;
 
+    moodFill.style.width = "0%";
+    moodFill.style.background = "#22c55e"; // back to green
+    moodLabel.textContent = "Mood: Excited as ever 🤩💞";
+
     yesBtn.style.display = "none";
     noBtn.style.display = "none";
     noHint.style.display = "none";
@@ -590,4 +594,5 @@ setTimeout(() => {
     noHint.style.display = "block";
     placeHintNearNo(rr.left, rr.top, rr.width, rr.height);
 }, 60);
+
 
