@@ -433,6 +433,7 @@ function enterGunStage() {
 
 function removeNoForever() {
     noRemovedByGun = true;
+    yesBtn.textContent = "No more NO 😈💘 Just press YES!";
     gunOverlay.classList.add("hidden");
     noBtn.style.display = "none";
     noHint.style.display = "none";
@@ -593,6 +594,7 @@ setTimeout(() => {
     noHint.style.display = "block";
     placeHintNearNo(rr.left, rr.top, rr.width, rr.height);
 }, 60);
+
 
 
 
