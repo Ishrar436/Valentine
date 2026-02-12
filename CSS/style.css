@@ -291,7 +291,7 @@ body {
     width: 14%;
     height: 100%;
     border-radius: 999px;
-    background: linear-gradient(90deg, #ff8fab, #8b5cf6, #22c55e);
+    background: linear-gradient(90deg, #0d8439, #bd7b0a, #f21313);
     transition: width .55s ease;
     /* slower mood bar */
 }
@@ -615,3 +615,4 @@ body {
     padding-bottom: 200px;
   }
 }
+
