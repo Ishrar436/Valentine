@@ -51,6 +51,7 @@ let noAttempts = 0;
 let celebrating = false;
 let gunStage = false;
 let noRemovedByGun = false;
+let gunOpenedAt = 0;
 
 // smaller = less “big border” around NO
 let dangerRadius = 80;
@@ -424,6 +425,7 @@ function registerAttempt(cursorX, cursorY) {
 // -----------------------------
 function enterGunStage() {
     gunStage = true;
+    gunOpenedAt = performance.now();
     gunOverlay.classList.remove("hidden");
     noBtn.style.display = "none";
     noHint.style.display = "none";
@@ -438,12 +440,14 @@ function removeNoForever() {
 
 // click anywhere when gun is showing -> remove no
 gunOverlay.addEventListener("click", () => {
+    e.stopPropagation();
     removeNoForever();
 });
 
 document.addEventListener("click", (e) => {
     if (gunStage && !noRemovedByGun) {
         if (e.target === yesBtn) return;
+        if (performance.now() - gunOpenedAt < 700) return;
         removeNoForever();
     }
 });
@@ -586,3 +590,4 @@ setTimeout(() => {
     noHint.style.display = "block";
     placeHintNearNo(rr.left, rr.top, rr.width, rr.height);
 }, 60);
+
