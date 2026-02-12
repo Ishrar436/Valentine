@@ -615,4 +615,7 @@ body {
     padding-bottom: 200px;
   }
 }
+#moodFill {
+    transition: width 2.5s ease, background 2.8s ease;
+}
 
